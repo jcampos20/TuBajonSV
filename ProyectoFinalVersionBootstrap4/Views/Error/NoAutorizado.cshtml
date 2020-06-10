@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "NoAutorizado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="padding-top:85px;font-family: 'Jost', sans-serif;">
+    <section class="page-header">
+        <h1>Error, no hay permiso</h1>
+    </section>
+    <section class="container">
+        <div class="error-page">
+            <h2 class="headline text-warning">Error</h2>
+            <div class="error-content">
+                <h3 style="color:#ffd800"><i class="fa fa-warning text-warning"></i>No está autorizado el acceso a esta pagina</h3>
+                @if (ViewBag.operacion != "")
+                {
+                    <p>Operacion @ViewBag.operacion</p>
+                }
+                @if (ViewBag.modulo != "")
+                {
+                    <p>Modulo @ViewBag.modulo</p>
+                }
+                @if (ViewBag.errorMensaje != "")
+                {
+                    <p>Error @ViewBag.errorMensaje</p>
+                }
+                @Html.ActionLink("Regresar a Inicio", "Index", "Home")
+            </div>
+        </div>
+    </section>
+</div>
+

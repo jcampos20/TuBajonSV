@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@if (ViewBag.Error != null)
+{
+    <script type="text/javascript">
+    alert('@ViewBag.Error')
+    </script>
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+
+<div id="Inicio">
+    <div class="align-content-center" style="padding-top:35vh;padding-left:30vw;">
+        <div style="width:40vw;height:25vh;background:white;box-shadow:rgba(0,0,0,0.4) 0px 0px 15px;text-align:center;padding-top:7vh;font-family: 'Jost', sans-serif;font-size:50px;border-radius:7px;">Bienvenidos!</div>
+    </div>
+</div>
+<!--Comidas!-->
+<div id="Comidas">
+    <div class="contenedorletras">
+        Encuentra la mejor opcion para comer!
+        Carnes, pupusas, torrejas..
+        <br />
+        Simplemente lo mejor de El Salvador!
+    </div>
+    <div class="contenedoracceder">
+        <input class="boton" value="Buscar comidas" type="button" onclick="" />
+
+    </div>
+</div>
+<!--Cerca de mi!-->
+<div id="Cercademi"></div>
+<!--Atribu!-->
+<div id="Atributos"></div>

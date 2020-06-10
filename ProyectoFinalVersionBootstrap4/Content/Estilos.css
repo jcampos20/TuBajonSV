@@ -1,0 +1,323 @@
+﻿/*Barra de navegacion*/
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Jost&display=swap');/*font-family: 'Jost', sans-serif;*/
+* {
+ scroll-behavior: smooth !important;
+    transition:ease .2s !important;
+}
+
+
+#identificate:hover{
+    background:#ffe395 !important;
+
+}
+
+/*Contenido de la pagina*/
+#Inicio {
+background:url(../Imagenes/Inicio.jpg)no-repeat;
+width:100%;
+height:100vh;
+background-size:cover;
+background-position:center;
+padding:0.1px;
+
+}
+#Comidas {
+background:url(../Imagenes/Comidas.jpg)no-repeat;
+width:100%;
+height:100vh;
+background-size:cover;
+background-position:center;
+padding:0.1px;
+background-attachment:fixed;
+}
+
+#Contacto
+{
+background:url(../Imagenes/Contactanos.svg)no-repeat ;
+width:100%;
+height:100vh;
+background-size:40vw;
+background-position:bottom;
+padding-top:0.1px;
+font-family: 'Montserrat', sans-serif;
+text-align:center;
+align-items:center;
+
+}
+#Cercademi {
+background:url(../Imagenes/CercadeMi.jpg)no-repeat ;
+width:100%;
+height:100vh;
+background-size:1400px;
+background-position:center;
+background-attachment:fixed;
+}
+#Atributos {
+background:url('../Imagenes/Yuca (1).jpg')no-repeat ;
+width:100%;
+height:100vh;
+background-size:1400px;
+background-position:center;
+
+}
+.boton {
+   font-family: 'Raleway', sans-serif;
+   border:none;
+   width:50%;
+   height:50px;
+   background-color:#5a5a5a;
+   color:white;
+   font-size:16px;
+   border-radius:5px;
+   transition:.2s;
+}
+    .boton:hover {
+    background-color:#2e2d2d;
+    box-shadow:rgba(0,0,0,0.15) 0px 0px 10px 5px;
+    }
+.contenedorletras {
+width:60vh;
+height:auto;
+font-family: 'Raleway', sans-serif;
+font-weight:900;
+text-align:justify;
+background-color:white;
+margin-left:5vw;
+margin-top:20vh;
+box-shadow:rgba(0,0,0,0.15) 0px 0px 15px 5px;
+font-size:25px;
+padding:20px;
+border-radius:50px 50px 50px 0px;
+}
+.contenedoracceder {
+width:60vh;
+height:auto;
+font-family: 'Raleway', sans-serif;
+font-weight:900;
+text-align:center;
+background-color:white;
+float:right;
+margin-right:5vw;
+margin-top:20vh;
+box-shadow:rgba(0,0,0,0.45) 0px 0px 15px 5px;
+font-size:25px;
+padding:20px;
+border-radius:50px 50px 0px 50px;
+}
+.container-contactos {
+width:50%;
+height:auto;
+font-family: 'Raleway', sans-serif;
+font-weight:900;
+background-color:white;
+box-shadow:rgba(0,0,0,0.45) 0px 0px 15px 5px;
+font-size:25px;
+padding:20px;
+border-radius:50px 50px 50px 50px;
+margin-left:25%;
+margin-top:100px;
+}
+
+#Contacto i{
+    font-size:50px;
+    margin:50px;
+    margin-right:0px;
+    
+}
+
+/*---------VENTANAS EMERGENTES---------*/
+#contenedormodal {
+    background:rgba(0, 0, 0, 0.50);
+    display:block;
+    z-index:3;
+    width:100%;
+    height:90vh;
+    position:fixed;
+    top:-100%;
+    padding:0px;
+   
+    
+}
+/*CONTENEDOR DEL LOGIN*/
+.contenedorlogin {
+    display:inline-block;
+    background: white;
+    width:60vw;
+    height:80vh;
+    top:5vh;
+    bottom:5vh;
+    position:absolute;
+    border-radius:8px;
+    left:20vw;
+    display:block;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    font-size:35px;
+    padding:0px;
+    transition:all .2s;
+}
+  
+        
+
+#contenedortextboxlogin {
+    background: white;
+    display:block;
+    width:50%;
+    height:100%;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    padding:15px;
+    transition:all .2s;
+    border:1px;
+   float:right;
+   animation-name: zoom;
+   animation-duration:.2s;
+}
+  #contenedortextboxlogin p {
+   margin-top:0px;
+   margin-bottom:20px;
+    font-size:25px;
+    }
+    #contenedortextboxlogin h5 {
+    font-family: 'Raleway', sans-serif;
+    font-weight:500;
+    font-size:18px;
+    bottom:0px;
+    text-align:left;
+    
+    }
+
+
+    #contenedortextboxlogin label i:hover {
+       color:#eaa62e;
+       text-shadow:rgba(0,0,0,0.75) 0px 0px 15px 5px;
+    }
+ .txtboxmodal { 
+     border:1px solid #9f9c9c;
+   width:100%;
+   height:35px;
+   font-family: 'Montserrat', sans-serif;
+   font-size:15px;
+   padding-left:5px;
+   top:0px;
+   transition:all .5s;
+  
+}
+    .txtboxmodal:focus {
+    border:1.5px solid #1592ef;
+    }
+    
+ 
+
+ /*Contenedor social*/
+#contenedorsocial {
+    background: #2d8df6;
+    width:50%;
+    height:100%;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    padding:15px;
+    transition:all .2s;
+    float:left;
+    display:block;
+    
+}
+
+/*Contendor registro*/
+#contenedortextboxregistrer {
+    background: white;
+    display:none;
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    padding:15px;
+    transition:all .2s;
+    border:1px;
+   float:right;
+   animation-name: zoom;
+   animation-duration:.2s;
+}
+#contenedortextboxregistrer label i:hover {
+       color:#eaa62e;
+       text-shadow:rgba(0,0,0,0.75) 0px 0px 15px 5px;
+    }
+.contenedortextboxregistrer1 {
+    background: white;
+    display:block;
+    width:50%;
+    height:65%;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    padding:15px;
+    transition:all .2s;
+    border:1px;
+   float:right;
+   margin-bottom:0px;
+   animation-name: zoom;
+   animation-duration:.2s;
+
+}
+
+.notienescuenta {
+    color:black;
+    font-family: 'Montserrat', sans-serif;
+    cursor:pointer;
+}
+
+    .notienescuenta:hover {
+    color:#f2c800;
+    font-family: 'Montserrat', sans-serif;
+    }
+@keyframes zoom
+{
+    0%{
+        transform: scale(.1);
+        
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.validacion{
+    margin-top:0px;
+    font-size:8px;
+    color:red;
+    font-family: 'Montserrat', sans-serif;
+
+}
+#usuarioregistrado {
+    background: white;
+    display:none;
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-family: 'Raleway', sans-serif;
+    font-weight:600;
+    padding:15px;
+    transition:all .2s;
+    border:1px;
+   float:right;
+   animation-name: zoom;
+   animation-duration:.2s;
+}
+
+/*Contenedores varios*/
+.registrate {
+color:#5a5a5a;
+cursor:pointer;
+}
+.registrate:hover {
+color:rgba(0,0,0,1);
+
+}
+
+
+

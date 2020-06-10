@@ -1,0 +1,624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProduccionTuBajonSVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="idcategoria" />
+          </Key>
+          <Property Name="idcategoria" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="Id_comentario" />
+          </Key>
+          <Property Name="Id_comentario" Type="int" Nullable="false" />
+          <Property Name="cod_user" Type="int" />
+          <Property Name="Id_establecimiento" Type="int" />
+          <Property Name="Comentario" Type="nvarchar" MaxLength="500" />
+          <Property Name="Calificacion" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="establecimientos">
+          <Key>
+            <PropertyRef Name="Id_establecimiento" />
+          </Key>
+          <Property Name="Id_establecimiento" Type="int" Nullable="false" />
+          <Property Name="Imagen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre_tienda" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Categoria" Type="int" />
+          <Property Name="Tipo_entrega" Type="nvarchar" MaxLength="50" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Horario" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
+          <Property Name="latitud" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="longitud" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="favoritos">
+          <Key>
+            <PropertyRef Name="Id_favoritos" />
+          </Key>
+          <Property Name="Id_favoritos" Type="int" Nullable="false" />
+          <Property Name="cod_user" Type="int" />
+          <Property Name="Id_establecimiento" Type="int" />
+        </EntityType>
+        <EntityType Name="MODULO">
+          <Key>
+            <PropertyRef Name="COD_MOD" />
+          </Key>
+          <Property Name="COD_MOD" Type="int" Nullable="false" />
+          <Property Name="NOM_MOD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OPERACIONES">
+          <Key>
+            <PropertyRef Name="COD_OPERA" />
+          </Key>
+          <Property Name="COD_OPERA" Type="int" Nullable="false" />
+          <Property Name="NOM_OPERA" Type="nchar" MaxLength="10" />
+          <Property Name="COD_MOD" Type="int" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ROL_OPERA">
+          <Key>
+            <PropertyRef Name="COD_ROLOP" />
+          </Key>
+          <Property Name="COD_ROLOP" Type="int" Nullable="false" />
+          <Property Name="COD_ROL" Type="int" />
+          <Property Name="COD_OPERA" Type="int" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+          <Property Name="COD_ROL" Type="int" />
+        </EntityType>
+        <Association Name="FK__Comentari__cod_u__2F10007B">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="cod_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comentari__Id_es__300424B4">
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="establecimientos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="Id_establecimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__estableci__Categ__286302EC">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idcategoria" />
+            </Principal>
+            <Dependent Role="establecimientos">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__favoritos__cod_u__2B3F6F97">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="favoritos" Type="Self.favoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="favoritos">
+              <PropertyRef Name="cod_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__favoritos__Id_es__2C3393D0">
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="0..1" />
+          <End Role="favoritos" Type="Self.favoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="establecimientos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Principal>
+            <Dependent Role="favoritos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OPERACIONES_MODULO">
+          <End Role="MODULO" Type="Self.MODULO" Multiplicity="0..1" />
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULO">
+              <PropertyRef Name="COD_MOD" />
+            </Principal>
+            <Dependent Role="OPERACIONES">
+              <PropertyRef Name="COD_MOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_OPERACIONES">
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERACIONES">
+              <PropertyRef Name="COD_OPERA" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_OPERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProduccionTuBajonSVModelStoreContainer">
+          <EntitySet Name="categorias" EntityType="Self.categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="establecimientos" EntityType="Self.establecimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="favoritos" EntityType="Self.favoritos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MODULO" EntityType="Self.MODULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPERACIONES" EntityType="Self.OPERACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL_OPERA" EntityType="Self.ROL_OPERA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comentari__cod_u__2F10007B" Association="Self.FK__Comentari__cod_u__2F10007B">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comentari__Id_es__300424B4" Association="Self.FK__Comentari__Id_es__300424B4">
+            <End Role="establecimientos" EntitySet="establecimientos" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__estableci__Categ__286302EC" Association="Self.FK__estableci__Categ__286302EC">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="establecimientos" EntitySet="establecimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__favoritos__cod_u__2B3F6F97" Association="Self.FK__favoritos__cod_u__2B3F6F97">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="favoritos" EntitySet="favoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__favoritos__Id_es__2C3393D0" Association="Self.FK__favoritos__Id_es__2C3393D0">
+            <End Role="establecimientos" EntitySet="establecimientos" />
+            <End Role="favoritos" EntitySet="favoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OPERACIONES_MODULO" Association="Self.FK_OPERACIONES_MODULO">
+            <End Role="MODULO" EntitySet="MODULO" />
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_OPERACIONES" Association="Self.FK_ROL_OPERA_OPERACIONES">
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_ROL" Association="Self.FK_ROL_OPERA_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProduccionTuBajonSVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="idcategoria" />
+          </Key>
+          <Property Name="idcategoria" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="establecimientos" Relationship="Self.FK__estableci__Categ__286302EC" FromRole="categorias" ToRole="establecimientos" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="Id_comentario" />
+          </Key>
+          <Property Name="Id_comentario" Type="Int32" Nullable="false" />
+          <Property Name="cod_user" Type="Int32" />
+          <Property Name="Id_establecimiento" Type="Int32" />
+          <Property Name="Comentario" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Calificacion" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__Comentari__cod_u__2F10007B" FromRole="Comentarios" ToRole="USUARIO" />
+          <NavigationProperty Name="establecimientos" Relationship="Self.FK__Comentari__Id_es__300424B4" FromRole="Comentarios" ToRole="establecimientos" />
+        </EntityType>
+        <EntityType Name="establecimientos">
+          <Key>
+            <PropertyRef Name="Id_establecimiento" />
+          </Key>
+          <Property Name="Id_establecimiento" Type="Int32" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre_tienda" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Categoria" Type="Int32" />
+          <Property Name="Tipo_entrega" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="categorias" Relationship="Self.FK__estableci__Categ__286302EC" FromRole="establecimientos" ToRole="categorias" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK__Comentari__Id_es__300424B4" FromRole="establecimientos" ToRole="Comentarios" />
+          <NavigationProperty Name="favoritos" Relationship="Self.FK__favoritos__Id_es__2C3393D0" FromRole="establecimientos" ToRole="favoritos" />
+          <Property Name="latitud" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="longitud" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="favoritos">
+          <Key>
+            <PropertyRef Name="Id_favoritos" />
+          </Key>
+          <Property Name="Id_favoritos" Type="Int32" Nullable="false" />
+          <Property Name="cod_user" Type="Int32" />
+          <Property Name="Id_establecimiento" Type="Int32" />
+          <NavigationProperty Name="establecimientos" Relationship="Self.FK__favoritos__Id_es__2C3393D0" FromRole="favoritos" ToRole="establecimientos" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK__favoritos__cod_u__2B3F6F97" FromRole="favoritos" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="MODULO">
+          <Key>
+            <PropertyRef Name="COD_MOD" />
+          </Key>
+          <Property Name="COD_MOD" Type="Int32" Nullable="false" />
+          <Property Name="NOM_MOD" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="OPERACIONES" Relationship="Self.FK_OPERACIONES_MODULO" FromRole="MODULO" ToRole="OPERACIONES" />
+        </EntityType>
+        <EntityType Name="OPERACIONES">
+          <Key>
+            <PropertyRef Name="COD_OPERA" />
+          </Key>
+          <Property Name="COD_OPERA" Type="Int32" Nullable="false" />
+          <Property Name="NOM_OPERA" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="COD_MOD" Type="Int32" />
+          <NavigationProperty Name="MODULO" Relationship="Self.FK_OPERACIONES_MODULO" FromRole="OPERACIONES" ToRole="MODULO" />
+          <NavigationProperty Name="ROL_OPERA" Relationship="Self.FK_ROL_OPERA_OPERACIONES" FromRole="OPERACIONES" ToRole="ROL_OPERA" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ROL_OPERA" Relationship="Self.FK_ROL_OPERA_ROL" FromRole="ROL" ToRole="ROL_OPERA" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ROL" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="ROL_OPERA">
+          <Key>
+            <PropertyRef Name="COD_ROLOP" />
+          </Key>
+          <Property Name="COD_ROLOP" Type="Int32" Nullable="false" />
+          <Property Name="COD_ROL" Type="Int32" />
+          <Property Name="COD_OPERA" Type="Int32" />
+          <NavigationProperty Name="OPERACIONES" Relationship="Self.FK_ROL_OPERA_OPERACIONES" FromRole="ROL_OPERA" ToRole="OPERACIONES" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_ROL_OPERA_ROL" FromRole="ROL_OPERA" ToRole="ROL" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COD_ROL" Type="Int32" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK__Comentari__cod_u__2F10007B" FromRole="USUARIO" ToRole="Comentarios" />
+          <NavigationProperty Name="favoritos" Relationship="Self.FK__favoritos__cod_u__2B3F6F97" FromRole="USUARIO" ToRole="favoritos" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
+        </EntityType>
+        <Association Name="FK__estableci__Categ__286302EC">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idcategoria" />
+            </Principal>
+            <Dependent Role="establecimientos">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comentari__cod_u__2F10007B">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="cod_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comentari__Id_es__300424B4">
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="establecimientos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="Id_establecimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__favoritos__Id_es__2C3393D0">
+          <End Role="establecimientos" Type="Self.establecimientos" Multiplicity="0..1" />
+          <End Role="favoritos" Type="Self.favoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="establecimientos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Principal>
+            <Dependent Role="favoritos">
+              <PropertyRef Name="Id_establecimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__favoritos__cod_u__2B3F6F97">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="favoritos" Type="Self.favoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="favoritos">
+              <PropertyRef Name="cod_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OPERACIONES_MODULO">
+          <End Role="MODULO" Type="Self.MODULO" Multiplicity="0..1" />
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULO">
+              <PropertyRef Name="COD_MOD" />
+            </Principal>
+            <Dependent Role="OPERACIONES">
+              <PropertyRef Name="COD_MOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_OPERACIONES">
+          <End Role="OPERACIONES" Type="Self.OPERACIONES" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERACIONES">
+              <PropertyRef Name="COD_OPERA" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_OPERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_OPERA_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="ROL_OPERA" Type="Self.ROL_OPERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="ROL_OPERA">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProduccionTuBajonSVEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categorias" EntityType="Self.categorias" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentarios" />
+          <EntitySet Name="establecimientos" EntityType="Self.establecimientos" />
+          <EntitySet Name="favoritos" EntityType="Self.favoritos" />
+          <EntitySet Name="MODULO" EntityType="Self.MODULO" />
+          <EntitySet Name="OPERACIONES" EntityType="Self.OPERACIONES" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" />
+          <EntitySet Name="ROL_OPERA" EntityType="Self.ROL_OPERA" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK__estableci__Categ__286302EC" Association="Self.FK__estableci__Categ__286302EC">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="establecimientos" EntitySet="establecimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comentari__cod_u__2F10007B" Association="Self.FK__Comentari__cod_u__2F10007B">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comentari__Id_es__300424B4" Association="Self.FK__Comentari__Id_es__300424B4">
+            <End Role="establecimientos" EntitySet="establecimientos" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__favoritos__Id_es__2C3393D0" Association="Self.FK__favoritos__Id_es__2C3393D0">
+            <End Role="establecimientos" EntitySet="establecimientos" />
+            <End Role="favoritos" EntitySet="favoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__favoritos__cod_u__2B3F6F97" Association="Self.FK__favoritos__cod_u__2B3F6F97">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="favoritos" EntitySet="favoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OPERACIONES_MODULO" Association="Self.FK_OPERACIONES_MODULO">
+            <End Role="MODULO" EntitySet="MODULO" />
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_OPERACIONES" Association="Self.FK_ROL_OPERA_OPERACIONES">
+            <End Role="OPERACIONES" EntitySet="OPERACIONES" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_OPERA_ROL" Association="Self.FK_ROL_OPERA_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="ROL_OPERA" EntitySet="ROL_OPERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProduccionTuBajonSVModelStoreContainer" CdmEntityContainer="ProduccionTuBajonSVEntities">
+          <EntitySetMapping Name="categorias">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.categorias">
+              <MappingFragment StoreEntitySet="categorias">
+                <ScalarProperty Name="idcategoria" ColumnName="idcategoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentarios">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.Comentarios">
+              <MappingFragment StoreEntitySet="Comentarios">
+                <ScalarProperty Name="Id_comentario" ColumnName="Id_comentario" />
+                <ScalarProperty Name="cod_user" ColumnName="cod_user" />
+                <ScalarProperty Name="Id_establecimiento" ColumnName="Id_establecimiento" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="establecimientos">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.establecimientos">
+              <MappingFragment StoreEntitySet="establecimientos">
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="Id_establecimiento" ColumnName="Id_establecimiento" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Nombre_tienda" ColumnName="Nombre_tienda" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Tipo_entrega" ColumnName="Tipo_entrega" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favoritos">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.favoritos">
+              <MappingFragment StoreEntitySet="favoritos">
+                <ScalarProperty Name="Id_favoritos" ColumnName="Id_favoritos" />
+                <ScalarProperty Name="cod_user" ColumnName="cod_user" />
+                <ScalarProperty Name="Id_establecimiento" ColumnName="Id_establecimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MODULO">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.MODULO">
+              <MappingFragment StoreEntitySet="MODULO">
+                <ScalarProperty Name="NOM_MOD" ColumnName="NOM_MOD" />
+                <ScalarProperty Name="COD_MOD" ColumnName="COD_MOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPERACIONES">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.OPERACIONES">
+              <MappingFragment StoreEntitySet="OPERACIONES">
+                <ScalarProperty Name="COD_OPERA" ColumnName="COD_OPERA" />
+                <ScalarProperty Name="NOM_OPERA" ColumnName="NOM_OPERA" />
+                <ScalarProperty Name="COD_MOD" ColumnName="COD_MOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL_OPERA">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.ROL_OPERA">
+              <MappingFragment StoreEntitySet="ROL_OPERA">
+                <ScalarProperty Name="COD_ROLOP" ColumnName="COD_ROLOP" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_OPERA" ColumnName="COD_OPERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="ProduccionTuBajonSVModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="COD_USER" ColumnName="COD_USER" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

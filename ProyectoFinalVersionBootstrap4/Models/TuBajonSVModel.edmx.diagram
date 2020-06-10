@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="885cf813125d4b16a433eb5dc6129857" Name="Diagram1">
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.categorias" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.Comentarios" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.establecimientos" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.favoritos" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.MODULO" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.OPERACIONES" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.ROL" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.ROL_OPERA" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProduccionTuBajonSVModel.USUARIO" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK__estableci__Categ__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK__Comentari__cod_u__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK__Comentari__Id_es__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK__favoritos__Id_es__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK__favoritos__cod_u__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK_OPERACIONES_MODULO" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK_ROL_OPERA_OPERACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK_ROL_OPERA_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="ProduccionTuBajonSVModel.FK_USUARIO_ROL" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
