@@ -1,0 +1,248 @@
+﻿@model ProyectoFinalVersionBootstrap4.Models.EstablecimientosModel
+@using ProyectoFinalVersionBootstrap4.Models.ViewModels;
+    @using ProyectoFinalVersionBootstrap4.Models;
+@{
+    
+    List<CategoriasViewModel> listacategorias = null;
+    using (ProduccionTuBajonSVEntities modelo = new ProduccionTuBajonSVEntities())
+    {
+        //realizamos la consulta a la tabla categorias
+        //Almacenamos en una lista tipo Categorias la seleccion que casteamos al mismo tipo CategoriasViewModel
+        listacategorias = (from d in modelo.categorias
+                 select new CategoriasViewModel
+                 {
+                     idcategoria = d.idcategoria,
+                     Descripcion = d.Descripcion
+                 }).ToList();
+
+
+
+    }
+    //Lo convertimos a un listado aceptado por el dropdown(Selectlistitem)
+    IEnumerable<SelectListItem> items = listacategorias.ConvertAll(d =>
+    {
+        return new SelectListItem()
+        {
+            Text = d.Descripcion.ToString(),
+            Value = d.idcategoria.ToString(),
+            Selected = false
+
+        };
+    }
+    );
+
+    //Devolvemos la lista con la consulta a la vista
+    ViewBag.Categoria = items;
+    IEnumerable<SelectListItem> Categoria = (IEnumerable<SelectListItem>)ViewBag.Categoria;
+
+    ViewBag.Title = "Establecimientos";
+    Layout = "~/Views/Shared/_Administradores.cshtml";
+    List<SelectListItem> lista = new List<SelectListItem>();
+    lista.Add(new SelectListItem() { Text = "Domicilio", Value = "Domicilio" });
+    lista.Add(new SelectListItem() { Text = "Llevar", Value = "Llevar" });
+    lista.Add(new SelectListItem() { Text = "Servicio a Mesa", Value = "Servicio a Mesa" });
+    lista.Add(new SelectListItem() { Text = "Para Llevar y Servicio a Mesa", Value = "Para Llevar y Servicio a Mesa" });
+
+    ViewBag.Opciones = lista;
+    { }}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+<style>
+    /*Añadiendo el estilo de nuestro mapa*/ 
+    #map {
+        width: 50%;
+        height: 90vh;
+    }
+    #div{    
+        float:left;
+        width: 50%;
+        margin-top:65px;
+        height: 90vh;
+    }
+   
+</style>
+<div style="display:inline;padding:0px;">
+    <div style="padding:0px !important ">
+        <div id="map" style="top:65px;float:left"></div>
+    </div>
+    <div style="left:50%">
+        
+        <div class="overflow-auto"  id="div" style="top:65px;display:inline">
+            
+  @if (ViewBag.Exito != null)
+  {
+    <script type="text/javascript">
+        alert('@ViewBag.Exito')
+        
+        
+    </script>
+   
+  }
+            @if (ViewBag.Error != null)
+            {
+                <script type="text/javascript">
+                    alert('@ViewBag.Error')
+
+
+                </script>
+
+            }
+            <div class="form-inline" style="padding:20px;display:inline">
+                @using (Html.BeginForm("Establecimientos", "Administrador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group" style="padding:20px;">
+                        <h4><strong>Establecimientos</strong></h4>
+                    </div>
+                    
+                    <br />
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.latitud, "Latitud:", new { style = "margin-right:15px;" })
+                       
+                        @Html.TextBoxFor(model => model.latitud, new { @class = "form-control", placeholder = "Latitud", @readonly = "readonly", id = "txtlatitud", style = "margin-right:15px;" })
+                        @Html.ValidationMessageFor(model => model.latitud, null, new { style = "color:red;" });
+                        <br />
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.longitud, "Longitud:", new { style = "margin-right:15px;" })
+                        @Html.TextBoxFor(model => model.longitud, new { @class = "form-control", placeholder = "Longitud", @readonly = "readonly", id = "txtlongitud", style = "margin-right:15px;" })
+                        @Html.ValidationMessageFor(model => model.longitud, null, new { style = "color:red;" });
+                    </div>
+                         <div class="form-group" style="padding:20px">
+                            
+                             @Html.TextBoxFor(model => model.file, new { @class = "form-control", type = "file", style = "margin-right:15px;" })
+                             @Html.ValidationMessageFor(model => model.file, null, new { style = "color:red;" });
+
+                             @Html.TextBoxFor(model => model.file2, new { @class = "form-control", type = "file", style = "margin-right:15px;" })
+                             @Html.ValidationMessageFor(model => model.file2, null, new { style = "color:red;" });
+
+                             @Html.TextBoxFor(model => model.file3, new { @class = "form-control", type = "file", style = "margin-right:15px;" })
+                             @Html.ValidationMessageFor(model => model.file2, null, new { style = "color:red;" });
+
+                             @Html.TextBoxFor(model => model.file4, new { @class = "form-control", type = "file", style = "margin-right:15px;" })
+                             @Html.ValidationMessageFor(model => model.file2, null, new { style = "color:red;" });
+                         </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Nombre_tienda, "Nombre Establecimiento:", new { style = "margin-right:15px;" })
+                        @Html.TextBoxFor(model => model.Nombre_tienda, new { @class = "form-control", placeholder = "Nombre del Establecimiento", style = "margin-right:15px;" })
+                        @Html.ValidationMessageFor(model => model.Nombre_tienda, null, new { style = "color:red;" });
+                       
+                        <br />
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Direccion, "Direccion:", new { style = "margin-right:15px;" })
+                        @Html.TextAreaFor(model => model.Direccion, new { @class = "form-control", placeholder = "Direccion", style = "margin-right:15px;width:80%;height:100px;" })
+                        @Html.ValidationMessageFor(model => model.Direccion, null, new { style = "color:red;" });
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Telefono, "Telefono:", new { style = "margin-right:15px;" })
+                        @Html.TextAreaFor(model => model.Telefono, new { @class = "form-control", placeholder = "99999999", style = "margin-right:15px;width:80%;height:100px;" })
+                        @Html.ValidationMessageFor(model => model.Telefono, null, new { style = "color:red;" });
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.Label("Categoria", new { style = "margin-right:15px;" })
+                        @Html.DropDownListFor(model => model.Categoria, Categoria, "Seleccione su categoria", new { @class = "form-control" })
+                       
+                        @Html.ValidationMessageFor(model => model.Categoria, null, new { style = "color:red;" });
+
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Tipo_entrega, "Tipo de Servicio:", new { style = "margin-right:15px;" })
+                        @Html.DropDownListFor(model => model.Tipo_entrega, (List<SelectListItem>)ViewBag.Opciones, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Precio, "Precio:", new { style = "margin-right:15px;" })
+                        @Html.TextBoxFor(model => model.Precio, new { @class = "form-control", placeholder = "Precio Promedio,ej:10.44", style = "margin-right:15px;" })
+                        @Html.ValidationMessageFor(model => model.Precio, null, new { style = "color:red;" });
+
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Horario, "Horario:", new { style = "margin-right:15px;" })
+                        @Html.TextBoxFor(model => model.Horario, new { @class = "form-control", placeholder = "De: 00:00 Hasta: 00:00", style = "margin-right:15px;" })
+
+
+                    </div>
+                    <div class="form-group" style="padding:20px">
+                        @Html.LabelFor(model => model.Descripcion, "Descripcion del Lugar:", new { style = "margin-right:15px;" })
+                        @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", placeholder = "Direccion", style = "margin-right:15px;width:80%;height:100px;" })
+                    </div>
+    <input style="margin:20px;" type="submit" class="btn btn-primary" value="Registrar Establecimiento" />
+    <input class="btn btn-secondary" type="reset" value="Limpiar Todo" />
+
+                }
+                <script src="~/Scripts/jquery.validate.min.js"></script>
+                <script src="~/Scripts/jquery.validate.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+            </div>
+        </div>
+
+        </div>
+</div>
+
+<script type="text/javascript">
+    //Mostrando la posicion del usuario
+    var longitud;
+    var latitud;
+    var textlatitud = document.getElementById("txtlatitud")
+    var textlongitud = document.getElementById("txtlongitud")
+  
+    function showPosition(position) {
+         latitud=position.coords.latitude 
+         longitud = position.coords.longitude
+         
+            var mapsipe = L.map('map').
+            setView([latitud, longitud],
+            15); // es la latitud y longitud de la zona que queremos mostrar, en nuestro caso la posicion actual del usuario
+             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapsipe);     
+             var popup = L.popup();
+            
+        
+
+        //Funcion que devuelve un popup en el mapa seleccionado con las coordenadas del click
+             function onMapClick(e) {
+                 
+                 popup
+                     .setLatLng(e.latlng)
+                     .setContent("Estas en " + e.latlng)
+                     .openOn(mapsipe);
+                 
+                 
+                 //mostrando en los textbox 
+                 textlatitud.value = e.latlng.lat;
+                 textlongitud.value = e.latlng.lng;
+             }
+            
+             mapsipe.on('click', onMapClick);
+
+    }
+    //Verificando si el navegador posee soporte para geolocalizacion
+    if (navigator.geolocation) {
+        //Cargando nuestro mapa
+        navigator.geolocation.getCurrentPosition(showPosition) 
+        
+       
+    } else
+    {
+        var mapsipe = L.map('map').
+       setView([13.6989939, -89.1914249],
+       15); //[13.6989939, -89.1914249] es la latitud y longitud de la zona que queremos mostrar, en nuestro caso San Salvador
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapsipe);
+    }
+
+    
+
+
+
+
+
+    
+</script>
+
+
+
+
+
+

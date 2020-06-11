@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Administradores";
+    Layout = "~/Views/Shared/_Administradores.cshtml";
+}
+
+  
+    
+    <div style="width:100%;display:inline;padding:0.1px;text-align:center">
+        
+            <div class="card shadow-lg" style="width:25vw;margin-left:20vw;margin-top:20vh;float:left;">
+                <img class="card-img-top" src="~/Imagenes/abrir-Chilate.jpg" alt="Alternate Text" />
+
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Establecimientos</strong></h5>
+                    <p class="card-text">Registre, modifique o elimine los establecimientos de comida</p>
+                    @Html.ActionLink("Ingresar Establecimientos", "Establecimientos", "Administrador", new { @class = "btn  btn-outline-primary" })
+                    <br />
+                    <br />
+                    @Html.ActionLink("Ver los establecimientos", "VerEstablecimientos", "Administrador", new { @class = "btn  btn-outline-secondary" })
+
+                </div>
+            </div>
+        <div class="card shadow-lg" style="width:25vw;margin-left:10vw;margin-top:20vh;float:left">
+            <img class="card-img-top" style="width:inherit;height:190px; " src="~/Imagenes/Usuarios.svg" />
+
+            <div class=" card-body">
+                <h5 class="card-title"><strong>Usuarios</strong></h5>
+                <p class="card-text">Registre, modifique o elimine los usuarios de la pagina</p>
+                @Html.ActionLink("Ingresar Establecimientos", "Establecimientos", "Administrador", new { @class = "btn  btn-outline-primary" })
+                <br />
+                <br />
+                @Html.ActionLink("Ver los establecimientos", "VerEstablecimientos", "Administrador", new { @class = "btn  btn-outline-secondary" })
+
+            </div>
+        </div>
+            
+       
+    </div>
+

@@ -1,0 +1,85 @@
+﻿@model List<ProyectoFinalVersionBootstrap4.Models.EstablecimientosModelListaTabla>
+
+@{
+    ViewBag.Title = "VerEstablecimientos";
+    Layout = "~/Views/Shared/_Administradores.cshtml";
+}
+@if (ViewBag.Eliminado != null)
+{
+    <script type="text/javascript">
+        alert('@ViewBag.Eliminado')
+    </script>
+}
+@if (ViewBag.Actualizado != null)
+{
+    <script type="text/javascript">
+    alert('@ViewBag.Actualizado')
+    </script>
+}
+@if (ViewBag.Exito != null)
+{
+    <script type="text/javascript">
+        alert('@ViewBag.Exito')
+
+
+    </script>
+
+}
+
+<div style="padding-top:80px;">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+
+                <th>Id Establecimiento</th>
+
+                <th>Nombre Tienda</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Categoria</th>
+                <th>Tipo de Entrega</th>
+                <th>Precio Promedio,</th>
+                <th>Horario</th>
+                <th>Descripcion</th>
+
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        
+        @if (int.Parse(Model.Count().ToString()) > 0)
+        {
+
+
+            foreach (ProyectoFinalVersionBootstrap4.Models.EstablecimientosModelListaTabla obj in Model)
+            {
+
+                <tr>
+                    <td scope="col">@obj.Id_establecimiento</td>
+
+                  
+                    <td >@obj.Nombre_tienda</td>
+                    <td>@obj.Direccion</td>
+                    <td>@obj.Telefono</td>
+                    <td>@obj.Categoria</td>
+                    <td>@obj.Tipo_entrega</td>
+                    <td>@obj.Precio</td>
+                    <td>@obj.Horario</td>
+                    <td>@obj.Descripcion</td>
+                    
+                    <td>@Html.ActionLink("Eliminar", "EliminarEstablecimientos", "Administrador", new{id = int.Parse(obj.Id_establecimiento.ToString()) },new { onclick = "return confirm('Esta seguro que desea borrar el establecimiento " + @obj.Id_establecimiento.ToString() + "?')", @class = "btn btn-danger" })
+                    @Html.ActionLink("Actualizar", "ActualizarEstablecimientos", "Administrador", new { id = int.Parse(obj.Id_establecimiento.ToString()) }, new { @class = "btn btn-info" })</td>
+                    
+                </tr>
+            
+            }
+        }
+        else
+        {
+            
+            <tr>
+                <td colspan="13">Inserte sus establecimientos</td>
+            </tr>
+        }
+    </table>
+    
+</div>
