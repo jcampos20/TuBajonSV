@@ -27,10 +27,11 @@
             <div class=" card-body">
                 <h5 class="card-title"><strong>Usuarios</strong></h5>
                 <p class="card-text">Registre, modifique o elimine los usuarios de la pagina</p>
-                @Html.ActionLink("Ingresar Establecimientos", "Establecimientos", "Administrador", new { @class = "btn  btn-outline-primary" })
+                @Html.ActionLink("Ingresar un nuevo usuario","InsertarNuevoUsuario", "Usuario",null, new { @class = "btn  btn-outline-primary" })
+                
                 <br />
                 <br />
-                @Html.ActionLink("Ver los establecimientos", "VerEstablecimientos", "Administrador", new { @class = "btn  btn-outline-secondary" })
+                @Html.ActionLink("Ver los Usuarios registrados","Index","Usuario",null, new { @class = "btn  btn-outline-secondary" })
 
             </div>
         </div>

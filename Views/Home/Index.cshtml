@@ -9,6 +9,13 @@
     alert('@ViewBag.Error')
     </script>
 }
+@if (TempData["UsuarioCompleto"] != null)
+{
+    <script type="text/javascript">
+        alert('@TempData["UsuarioCompleto"].ToString()')
+    </script>
+}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
 
 <div id="Inicio">
@@ -19,17 +26,14 @@
 <!--Comidas!-->
 <div id="Comidas">
     <div class="contenedorletras">
-        Encuentra la mejor opcion para comer!
-        Carnes, pupusas, torrejas..
+        Encuentra los mejores antojitos tipicos de nuestro pais!
+        como pupusas, yuca,
+        nuegados, torrejas, atoles...
         <br />
-        Simplemente lo mejor de El Salvador!
+        Simplemente lo mejor de lo mejor cerca de ti!
     </div>
     <div class="contenedoracceder">
-        <input class="boton" value="Buscar comidas" type="button" onclick="" />
+        @Html.ActionLink("Buscar Lugares Cerca de mi", "VerEstablecimientos", "Cliente", null, new { @class = "btn btn-inline-primary", style = "cursor:pointer" })
 
     </div>
 </div>
-<!--Cerca de mi!-->
-<div id="Cercademi"></div>
-<!--Atribu!-->
-<div id="Atributos"></div>

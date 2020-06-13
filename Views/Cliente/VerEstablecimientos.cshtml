@@ -1,0 +1,117 @@
+﻿@model List<ProyectoFinalVersionBootstrap4.Models.EstablecimientosModelListaTabla>
+@using Newtonsoft.Json
+@{
+    ViewBag.Title = "VerEstablecimientos";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+<style>
+    /*Añadiendo el estilo de nuestro mapa*/
+    #map {
+        width: 100%;
+        height: 90vh;
+    }
+
+    #div {
+        float: left;
+        width: 50%;
+        margin-top: 65px;
+        height: 90vh;
+    }
+</style>
+<div style="display:inline;padding:0px;">
+    <div style="padding:0px !important ">
+        <div id="map" style="top:65px;float:left; z-index:0"></div>
+    </div>
+   
+    
+</div>
+
+<script type="text/javascript">
+    
+        var data = @Html.Raw(JsonConvert.SerializeObject(Model));
+    //Mostrando la posicion del usuario
+    var longitud;
+    var latitud;
+    var textlatitud = document.getElementById("txtlatitud")
+    var textlongitud = document.getElementById("txtlongitud")
+
+    function showPosition(position) {
+        latitud = position.coords.latitude
+        longitud = position.coords.longitude
+
+        var mapsipe = L.map('map').
+            setView([latitud, longitud],
+                15); // es la latitud y longitud de la zona que queremos mostrar, en nuestro caso la posicion actual del usuario
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapsipe);
+
+        var circle = L.circle([latitud, longitud], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 25
+        }).addTo(mapsipe);
+
+        circle.bindPopup("Tu estas aqui").openPopup();
+
+        
+        //Mostrando ubicaciones en el mapa
+        for (var i = 0; i < data.length; i++) {
+            // init markers
+            var marker = L.marker([data[i].latitud, data[i].longitud]).addTo(mapsipe);
+            marker.bindPopup('Nombre:' + data[i].Nombre_tienda +'\n'+'Direccion:' + data[i].Direccion);
+
+        };
+   
+
+       //Funcion que devuelve un popup en el mapa seleccionado con las coordenadas del click
+           function onMapClick(e) {
+
+               popup
+                   .setLatLng(e.latlng)
+                   .setContent("Estas en " + e.latlng)
+                   .openOn(mapsipe);
+
+
+               //mostrando en los textbox
+               textlatitud.value = e.latlng.lat;
+               textlongitud.value = e.latlng.lng;
+           }
+
+           mapsipe.on('click', onMapClick);
+
+       }
+    //Verificando si el navegador posee soporte para geolocalizacion
+    if (navigator.geolocation) {
+        //Cargando nuestro mapa
+        navigator.geolocation.getCurrentPosition(showPosition)
+        
+
+
+    } else {
+        var mapsipe = L.map('map').
+            setView([13.6989939, -89.1914249],
+                15); //[13.6989939, -89.1914249] es la latitud y longitud de la zona que queremos mostrar, en nuestro caso San Salvador
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapsipe);
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+

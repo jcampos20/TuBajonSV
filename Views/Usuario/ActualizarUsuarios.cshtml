@@ -1,0 +1,66 @@
+﻿@model ProyectoFinalVersionBootstrap4.Models.ViewModels.UsuarioViewModel
+@{
+    ViewBag.Title = "Actualizar Usuario";
+    Layout = "~/Views/Shared/_Administradores.cshtml";
+
+    //Definiendo las opciones del rol
+    List<SelectListItem> lista = new List<SelectListItem>();
+    lista.Add(new SelectListItem() { Text = "Administrador", Value = "1" });
+    lista.Add(new SelectListItem() { Text = "Usuario", Value = "2" });
+
+
+    ViewBag.Opciones = lista;
+}
+
+<div class="form-inline" style="padding:20px;display:inline">
+    @using (Html.BeginForm("UpdateUsuarios", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group" style="padding:20px;">
+            <h4><strong>Usuarios</strong></h4>
+        </div>
+
+        <br />
+
+
+
+        <div class="form-group" style="padding:20px">
+            @Html.LabelFor(model => model.COD_USER, "Correlativo", new { style = "margin-right:15px;" })
+            @Html.TextBoxFor(model => model.COD_USER, new { @class = "form-control", placeholder = "Correlativo", @readonly = "readonly", style = "margin-right:15px;" })
+            @Html.ValidationMessageFor(model => model.COD_USER, null, new { style = "color:red;" });
+
+            <br />
+        </div>
+        <div class="form-group" style="padding:20px">
+            @Html.LabelFor(model => model.NOMBRE, "Nombre de Usuario:", new { style = "margin-right:15px;" })
+            @Html.TextBoxFor(model => model.NOMBRE, new { @class = "form-control", placeholder = "Nombre de usuario", style = "margin-right:15px;width:80%;height:100px;" })
+            @Html.ValidationMessageFor(model => model.NOMBRE, null, new { style = "color:red;" });
+        </div>
+        <div class="form-group" style="padding:20px">
+            @Html.LabelFor(model => model.PASSWORD, "Telefono:", new { style = "margin-right:15px;" })
+            @Html.TextBoxFor(model => model.PASSWORD, new { @class = "form-control", type = "password", placeholder = "Password", style = "margin-right:15px;width:80%;height:100px;" })
+            @Html.ValidationMessageFor(model => model.PASSWORD, null, new { style = "color:red;" });
+        </div>
+        <div class="form-group" style="padding:20px">
+            @Html.LabelFor(model => model.EMAIL, "Email:", new { style = "margin-right:15px;" })
+            @Html.TextBoxFor(model => model.EMAIL, new { @class = "form-control", type = "email", placeholder = "Email", style = "margin-right:15px;" })
+            @Html.ValidationMessageFor(model => model.EMAIL, null, new { style = "color:red;" });
+
+        </div>
+        <div class="form-group" style="padding:20px">
+            @Html.Label("Categoria", new { style = "margin-right:15px;" })
+            @Html.DropDownListFor(model => model.COD_ROL, (List<SelectListItem>)ViewBag.Opciones, "Seleccione su categoria", new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.COD_ROL, null, new { style = "color:red;" });
+
+        </div>
+
+
+        <input style="margin:20px;" type="submit" class="btn btn-primary" value="Registrar Usuario" />
+        <input class="btn btn-secondary" type="reset" value="Limpiar Todo" />
+
+    }
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</div>

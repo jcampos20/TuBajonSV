@@ -1,0 +1,75 @@
+﻿@model List<ProyectoFinalVersionBootstrap4.Models.ViewModels.UsuarioViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Administradores.cshtml";
+}
+
+@if (ViewBag.Error != null)
+{
+    <script type="text/javascript">alert('@ViewBag.Error')</script>}
+  @if (TempData["Eliminado"] != null)
+  {
+<script type="text/javascript">alert('@TempData["Eliminado"].ToString()')</script>}                                                               
+                                            
+@if (ViewBag.Completo != null)
+{
+    <script type="text/javascript">alert('@ViewBag.Completo')</script>}
+@if (TempData["Actualizado"] != null)
+{
+    <script type ="text/javascript">
+    alert('@TempData["Actualizado"].ToString()')</script>}
+
+<div style="padding-top:80px;">
+    <div style="display:inline;float:right">
+        <i class="fa fas-document"></i> @Html.ActionLink("Nuevo", "InsertarNuevoUsuario", "Usuario", new { @class = "btn btn-primary" })
+    </div>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+
+            </tr>
+        </thead>
+
+        @if (int.Parse(Model.Count().ToString()) > 0)
+        {
+
+
+            foreach (ProyectoFinalVersionBootstrap4.Models.ViewModels.UsuarioViewModel obj in Model)
+            {
+
+                <tr>
+                    <td scope="col">@obj.COD_USER</td>
+
+
+                    <td>@obj.NOMBRE</td>
+                    <td>@obj.EMAIL</td>
+                    <td>@obj.COD_ROL</td>
+
+
+                    <td>
+
+                        @Html.ActionLink("Eliminar", "EliminarUsuario", "Usuario", new { id = int.Parse(obj.COD_USER.ToString()) }, new { onclick = "return confirm('Esta seguro que desea borrar el usuario # " + @obj.COD_USER.ToString() + "?')", @class = "btn btn-danger" })
+                        @Html.ActionLink("Actualizar", "ActualizarUsuarios", "Usuario", new { id = int.Parse(obj.COD_USER.ToString()) }, new { @class = "btn btn-info" })
+                    </td>
+
+                </tr>
+
+            }
+        }
+        else
+        {
+
+            <tr>
+                <td colspan="13">Inserte sus establecimientos</td>
+            </tr>
+        }
+    </table>
+
+</div>
+

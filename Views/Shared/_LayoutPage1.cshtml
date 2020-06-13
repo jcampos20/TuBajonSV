@@ -25,7 +25,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-family: 'Jost', sans-serif;position:fixed;width:100%;">
        
         <a class="navbar-brand " href="#" style="font-size:25px;color:#fccf52">
-            <img src="~/Imagenes/comida-rapida.svg" height="40" width="40" class="d-inline-block aling-top" />
+            <img src="~/Imagenes/Logo.png" height="40" width="40" class="d-inline-block aling-top" />
             TUBAJONSV
         </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,13 +36,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#Inicio">Inicio <span class="sr-only">(current)</span></a>
+                <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link", style = "cursor:pointer" })</li>
+
                 </li>
-               
-                <li class="nav-item"><a class="nav-link" style="cursor:pointer" href="#Comidas">Buscar Comidas</a></li>
-                <li class="nav-item"><a class="nav-link" style="cursor:pointer;" href="#Cercademi">Cerca de mi</a></li>
-                <li class="nav-item"><a class="nav-link" style="cursor:pointer;" href="#Atributos">Favoritos</a></li>
-                
+
+                <li class="nav-item">@Html.ActionLink("Buscar Lugares", "VerEstablecimientos", "Cliente", null, new { @class = "nav-link", style = "cursor:pointer" })</li>
+
+
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 @if (ViewBag.Usuario == null)
@@ -82,9 +83,9 @@
                     <div class="modal-body text-center">
                         <img src="~/Imagenes/undraw_profile_pic_ic5t.svg" height="200" width="200" class="img-fluid" />
                         <br />
-
+                       
                         <div class="form-group">
-                            <label>Usuario</label>
+                            <label>Correo</label>
                             <br />
                             <input type="email" name="Usuario" />
                         </div>
@@ -118,19 +119,44 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-center">
-                    
-                    <label>Ya tienes usuario?<strong class="registrate"><a data-toggle="modal" data-dismiss="modal" href="#ventanalogin">Ingresa aca</a></strong></label>
+                <form action="@Url.Content("~/Usuario/InsertarNuevoCliente")" method="post">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Registrarme</button>
+                    <div class="modal-body text-center">
 
-                </div>
+                        <br />
+                        <div class="form-group">
+                            <label>Nombre Usuario</label>
+                            <br />
+                            <input type="text" required="required" name="Nombre" />
+                        </div>
+                        <div class="form-group">
+
+                            <label>Correo</label>
+                            <br />
+                            <input type="email" name="correo" />
+                        </div>
+                        <div class="form-group">
+                            <label>Contrasenia</label>
+                            <br />
+                            <input type="password" name="pass" />
+                        </div>
+                        <br />
+                        <label>Ya tienes usuario?<strong class="registrate"><a data-toggle="modal" data-dismiss="modal" href="#ventanalogin">Ingresa aca</a></strong></label>
+
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Registrarme</button>
+
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+        </div>
+   
     <!--Fin modal Login-->
     
     <div>
